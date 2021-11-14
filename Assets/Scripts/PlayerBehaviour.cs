@@ -12,6 +12,7 @@
  *  - 15/10/2021 - Add transition to Level Two
  *  - 15/10/2021 - Transfer player score to next level
  *  - 15/10/2021 - Add enemy interactions
+ *  - 14/11/2021 - Handle moving platform interaction
  */
 
 using System.Collections;
@@ -174,6 +175,36 @@ public class PlayerBehaviour : MonoBehaviour
         groundHit = Physics2D.Linecast(transform.position, lookAheadPoint.position, collisionGroundLayer);
 
         isGrounded = (groundHit || groundHitLeft || groundHitRight) ? true : false;
+
+        if (isGrounded)
+        {
+            Transform newParent = null;
+            if (groundHit && groundHit.collider.tag == "Platform")
+                newParent = groundHit.collider.gameObject.transform;
+            else if (groundHitLeft && groundHitLeft.collider.tag == "Platform")
+                newParent = groundHitLeft.collider.gameObject.transform;
+            else if (groundHitRight && groundHitRight.collider.tag == "Platform")
+                newParent = groundHitRight.collider.gameObject.transform;
+            
+            if (newParent != null)
+            {
+                GameObject emptyObject = null;
+                if (newParent.childCount > 0)
+                {
+                    emptyObject = newParent.transform.GetChild(0).gameObject;
+                }
+                else
+                {
+                    emptyObject = new GameObject();
+                }
+                emptyObject.transform.parent = newParent;
+                gameObject.transform.parent = emptyObject.transform;
+            }
+        }
+        else
+        {
+            transform.parent = null;
+        }
 
         Debug.DrawLine(transform.position, lookAheadPoint.position, Color.green);
     }
@@ -345,6 +376,21 @@ public class PlayerBehaviour : MonoBehaviour
             gameObject.GetComponent<AudioSource>().Play();
             other.gameObject.SetActive(false);
             Destroy(other.gameObject);
+        }
+
+        if (other.tag == "Platform")
+        {
+            Debug.Log("Enter");
+            // transform.parent = other.gameObject.transform.GetChild(0).transform;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Platform")
+        {
+            Debug.Log("Exit");
+            // transform.parent = null;
         }
     }
 }
