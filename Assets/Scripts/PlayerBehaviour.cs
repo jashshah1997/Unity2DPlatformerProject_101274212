@@ -197,6 +197,7 @@ public class PlayerBehaviour : MonoBehaviour
                 else
                 {
                     emptyObject = new GameObject();
+                    emptyObject.name = "PlayerHook";
                 }
                 emptyObject.transform.parent = newParent;
                 gameObject.transform.parent = emptyObject.transform;
