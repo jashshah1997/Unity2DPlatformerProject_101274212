@@ -57,6 +57,12 @@ public class MainMenuController : MonoBehaviour
         m_instruction_screen_2.SetActive(true);
     }
 
+    public void OnPreviousInstructionButton()
+    {
+        m_instruction_screen.SetActive(true);
+        m_instruction_screen_2.SetActive(false);
+    }
+
     public void OnInstructionsButton()
     {
         toggle_main_and_instruction_menu();
