@@ -13,6 +13,7 @@
  *  - 15/10/2021 - Transfer player score to next level
  *  - 15/10/2021 - Add enemy interactions
  *  - 14/11/2021 - Handle moving platform interaction
+ *  - 18/11/2021 - Correctly handle platform jumps
  */
 
 using System.Collections;
@@ -282,11 +283,10 @@ public class PlayerBehaviour : MonoBehaviour
                 }
             }
 
-            if ((Input.GetAxis("Vertical") > 0) && (!isJumping))
+            if ((Input.GetAxis("Vertical") > 0) && (!isJumping) && m_rigidBody2D.velocity.y < 0.2)
             {
                 // jump
-                m_rigidBody2D.AddForce(Vector2.up * verticalForce);
-                //m_animator.SetInteger("AnimState", (int) PlayerAnimationType.JUMP);
+                m_rigidBody2D.velocity = m_rigidBody2D.velocity + Vector2.up * verticalForce;
                 m_animator.ResetTrigger("idleTrigger");
                 m_animator.ResetTrigger("walkTrigger");
                 m_animator.SetTrigger("jumpTrigger");
@@ -376,21 +376,6 @@ public class PlayerBehaviour : MonoBehaviour
             gameObject.GetComponent<AudioSource>().Play();
             other.gameObject.SetActive(false);
             Destroy(other.gameObject);
-        }
-
-        if (other.tag == "Platform")
-        {
-            Debug.Log("Enter");
-            // transform.parent = other.gameObject.transform.GetChild(0).transform;
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.tag == "Platform")
-        {
-            Debug.Log("Exit");
-            // transform.parent = null;
         }
     }
 }
