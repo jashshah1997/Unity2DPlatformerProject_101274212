@@ -8,6 +8,7 @@
  *  - 25/09/2021 - Add Initial Main Menu functions
  *  - 26/09/2021 - Add instruction screen functionality
  *  - 26/09/2021 - Add Gamplay screen menu functionality
+ *  - 18/11/2021 - Update Main Menu instructions
  */
 
 using System.Collections;
@@ -19,17 +20,24 @@ public class MainMenuController : MonoBehaviour
 {
     GameObject m_main_menu;
     GameObject m_instruction_screen;
+    GameObject m_instruction_screen_2;
 
     void Start()
     {
         m_main_menu = GameObject.FindGameObjectWithTag("MainMenu");
         m_instruction_screen = GameObject.FindGameObjectWithTag("InstructionScreen");
-        
+        m_instruction_screen_2 = GameObject.FindGameObjectWithTag("InstructionScreen2");
+
         m_main_menu.SetActive(true);
 
         if (m_instruction_screen)
         {
             m_instruction_screen.SetActive(false);
+        }
+
+        if (m_instruction_screen_2)
+        {
+            m_instruction_screen_2.SetActive(false);
         }
     }
 
@@ -41,6 +49,12 @@ public class MainMenuController : MonoBehaviour
     public void OnBackButton()
     {
         toggle_main_and_instruction_menu();
+    }
+    
+    public void OnNextInstructionButton()
+    {
+        m_instruction_screen.SetActive(false);
+        m_instruction_screen_2.SetActive(true);
     }
 
     public void OnInstructionsButton()
@@ -59,5 +73,6 @@ public class MainMenuController : MonoBehaviour
 
         m_main_menu.SetActive(!is_active);
         m_instruction_screen.SetActive(is_active);
+        m_instruction_screen_2.SetActive(false);
     }
 }
