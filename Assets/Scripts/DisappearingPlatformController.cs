@@ -1,4 +1,14 @@
-﻿using System.Collections;
+﻿/**
+ * Filename:            DisappearingPlatformController.cs
+ * Student Name:        Jash Shah
+ * Student ID:          101274212
+ * Date last modified:  18/11/2021
+ * Program Description: Controls the moving platforms
+ * Revision History:
+ *  - 18/11/2021 - Add initial code for disappearing platforms
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

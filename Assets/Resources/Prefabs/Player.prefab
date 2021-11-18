@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalForce: 500
-  verticalForce: 500
+  verticalForce: 10
   lifeCount: 3
   score: 0
   isGrounded: 0

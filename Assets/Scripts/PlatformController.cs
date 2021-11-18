@@ -2,7 +2,7 @@
  * Filename:            PlatformController.cs
  * Student Name:        Jash Shah
  * Student ID:          101274212
- * Date last modified:  26/09/2021
+ * Date last modified:  14/11/2021
  * Program Description: Controls the moving platforms
  * Revision History:
  *  - 14/11/2021 - Add initial code for moving platforms
