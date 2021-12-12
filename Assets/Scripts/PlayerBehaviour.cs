@@ -15,7 +15,8 @@
  *  - 14/11/2021 - Handle moving platform interaction
  *  - 18/11/2021 - Correctly handle platform jumps\
  *  - 12/12/2021 - Add shooting mechanic
- */
+ *  - 12/12/2021 - Randomly generate a point count from chests
+*/
 
 using System.Collections;
 using System.Collections.Generic;
@@ -379,7 +380,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (other.tag == "Chest")
         {
-            score += 50;
+            score += UnityEngine.Random.Range(50, 100);
             gameObject.GetComponent<AudioSource>().Play();
             other.gameObject.SetActive(false);
             Destroy(other.gameObject);
