@@ -13,7 +13,8 @@
  *  - 15/10/2021 - Transfer player score to next level
  *  - 15/10/2021 - Add enemy interactions
  *  - 14/11/2021 - Handle moving platform interaction
- *  - 18/11/2021 - Correctly handle platform jumps
+ *  - 18/11/2021 - Correctly handle platform jumps\
+ *  - 12/12/2021 - Add shooting mechanic
  */
 
 using System.Collections;
@@ -76,7 +77,7 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject m_life_object;
     private List<GameObject> m_lifePool;
     public GameObject gameOver;
-
+    public GameObject bulletPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -108,6 +109,7 @@ public class PlayerBehaviour : MonoBehaviour
             life.transform.position = life.transform.position + i * life.GetComponent<SpriteRenderer>().bounds.size.y * Vector3.right;
             m_lifePool.Add(life);
         }
+
     }
 
     void Update()
@@ -116,6 +118,10 @@ public class PlayerBehaviour : MonoBehaviour
         {
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             m_clicked_position = worldPosition.x;
+
+            var g = Instantiate(bulletPrefab);
+            g.transform.position = this.gameObject.transform.position;
+            g.GetComponent<BulletController>().direction = gameObject.transform.localScale.x;
         }
 
         //text.text = "Velocity: " + Mathf.Round(m_rigidBody2D.velocity.magnitude);
